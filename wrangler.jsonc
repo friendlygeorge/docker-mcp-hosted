@@ -1,0 +1,22 @@
+{
+  "name": "docker-mcp-hosted",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-01-28",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "logs": { "enabled": true } },
+  "kv_namespaces": [
+    { "binding": "API_KEYS", "id": "988c98e6709e48c8aa9858258023f2e7" },
+    { "binding": "SUBSCRIPTIONS", "id": "03ff3565e23641e8871e781a22dda5ac" }
+  ],
+  "durable_objects": {
+    "bindings": [
+      { "name": "MCP_SERVER", "class_name": "McpGateway" }
+    ]
+  },
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["McpGateway"] }
+  ],
+  "vars": {
+    "NOVA_WALLET": "0x512504F1F8F36B3B8436feA2b0aD9ebD5B42A623"
+  }
+}
