@@ -53,6 +53,45 @@ Running `docker-mcp-server` locally works fine when you're on the same machine. 
 ### Standard Tier Tools (full access)
 All 31 tools including: `create_container`, `start_container`, `stop_container`, `remove_container`, `compose_up`, `compose_down`, `run_command`, `copy_to_container`, `copy_from_container`, `prune_containers`, `prune_images`, `prune_networks`, `prune_volumes`, and more.
 
+## Subscriptions (Standard Tier)
+
+Standard tier access is paid via USDC on Base. Subscriptions last 30 days.
+
+### Subscribe Flow
+
+```bash
+# 1. Get payment instructions (returns amount, wallet, memo, expiry)
+curl -X POST https://docker-mcp-hosted.friendlygeorge0220.workers.dev/api/subscribe \
+  -H "Content-Type: application/json" \
+  -d '{"wallet": "0xYOUR_WALLET_ADDRESS"}'
+
+# 2. Send 19 USDC to the returned wallet on Base network
+#    Include the memo in the transaction (if your wallet supports it)
+
+# 3. Verify payment and get your subscription token
+curl -X POST https://docker-mcp-hosted.friendlygeorge0220.workers.dev/api/verify \
+  -H "Content-Type: application/json" \
+  -d '{"txHash": "0xYOUR_TX_HASH", "wallet": "0xYOUR_WALLET_ADDRESS"}'
+
+# 4. Use the returned token as your Bearer token for /mcp access
+```
+
+### Check Subscription Status
+
+```bash
+curl https://docker-mcp-hosted.friendlygeorge0220.workers.dev/api/subscription/status \
+  -H "Authorization: Bearer YOUR_SUBSCRIPTION_TOKEN"
+```
+
+### Free Tier (No Subscription Needed)
+
+Connect with any API key for read-only access:
+
+```bash
+# Create an API key via KV store (self-hosted only)
+npx wrangler kv key put --binding=API_KEYS "your-key" '{"tier":"free","userId":"you"}'
+```
+
 ## Prerequisites
 
 1. **A Cloudflare account** (free tier works)
@@ -153,18 +192,39 @@ Returns server status and version.
 Main MCP protocol endpoint. Accepts JSON-RPC messages with MCP protocol headers.
 
 **Required headers:**
-- `Authorization: Bearer <api-key>`
+- `Authorization: Bearer ***`
 - `Content-Type: application/json`
 - `Accept: application/json, text/event-stream`
 
 **Response:** Standard MCP protocol response (JSON-RPC or SSE).
 
+### `POST /api/subscribe`
+
+Get payment instructions for Standard tier subscription.
+
+**Request body:** `{"wallet": "0xYOUR_WALLET_ADDRESS"}`
+**Response:** `{amount, wallet, memo, expiresAt, message}`
+
+### `POST /api/verify`
+
+Verify a USDC payment and issue a subscription token.
+
+**Request body:** `{"txHash": "0xYOUR_TX_HASH", "wallet": "0xYOUR_WALLET_ADDRESS"}`
+**Response:** `{success, token, expiresAt, message}`
+
+### `GET /api/subscription/status`
+
+Check subscription validity. Requires `Authorization: Bearer TOKEN` header.
+
+**Response:** `{active, expiresAt, daysRemaining}`
+
 ### Error Responses
 
 | Status | Error | Meaning |
 |--------|-------|---------|
-| 401 | `unauthorized` | Missing or invalid API key |
+| 401 | `unauthorized` | Missing or invalid API key/token |
 | 403 | `forbidden` | Tool not available at your tier |
+| 404 | `not_found` | Transaction not found (wait for confirmation) |
 | 429 | `rate_limited` | Too many requests (retry after `retryAfter` ms) |
 | 502 | `tunnel_unreachable` | Your Docker MCP server is not reachable via the tunnel |
 
