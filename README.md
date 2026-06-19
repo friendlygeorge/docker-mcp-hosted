@@ -45,13 +45,13 @@ Running `docker-mcp-server` locally works fine when you're on the same machine. 
 | Tier | Price | Tools | Rate Limit |
 |------|-------|-------|------------|
 | Free | $0 | 8 read-only tools | 30 req/min |
-| Standard | $19/mo | All 31 tools | 120 req/min |
+| Standard | $19/mo | All 42 tools | 120 req/min |
 
 ### Free Tier Tools (read-only)
 `list_containers`, `inspect_container`, `container_health_status`, `check_health`, `fleet_status`, `list_images`, `list_networks`, `list_volumes`
 
 ### Standard Tier Tools (full access)
-All 31 tools including: `create_container`, `start_container`, `stop_container`, `remove_container`, `compose_up`, `compose_down`, `run_command`, `copy_to_container`, `copy_from_container`, `prune_containers`, `prune_images`, `prune_networks`, `prune_volumes`, and more.
+All 42 tools including: `create_container`, `start_container`, `stop_container`, `remove_container`, `compose_up`, `compose_down`, `run_command`, `copy_to_container`, `copy_from_container`, `prune_containers`, `prune_images`, `prune_networks`, `prune_volumes`, and more.
 
 ## Subscriptions (Standard Tier)
 
