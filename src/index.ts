@@ -335,7 +335,7 @@ async function handleMcpRequest(
             JSON.stringify({
               error: "upgrade_required",
               message: `Tool "${toolName}" requires Standard tier ($19/mo). Free tier includes: ${Array.from(FREE_TOOLS).join(", ")}.`,
-              upgradeUrl: "https://docker-mcp-worker.friendlygeorge0220.workers.dev/pricing",
+              upgradeUrl: "https://docker-mcp-hosted.friendlygeorge0220.workers.dev/pricing",
             }),
             { status: 403, headers: { "Content-Type": "application/json" } }
           );
