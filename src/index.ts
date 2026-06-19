@@ -8,7 +8,7 @@
  * and proxies MCP protocol messages through a Cloudflare Tunnel.
  *
  * Free tier: read-only tools (list, inspect, status), 30 req/min
- * Standard tier ($19/mo): full access (all 31 tools), 120 req/min
+ * Standard tier ($19/mo): full access (all 42 tools), 120 req/min
  *
  * Phase 1: Scaffold — API key auth via KV, tool forwarding via tunnel (DONE)
  * Phase 2: Tunnel bridge — actual HTTP proxy to user's Docker MCP via tunnel (DONE)
@@ -610,7 +610,7 @@ code{background:#f5f5f5;padding:2px 6px;border-radius:4px;font-size:13px}
 <p><em>Get started: install docker-mcp-server, run cloudflared tunnel, connect your AI client.</em></p></div>
 <div class="card paid"><h2>Standard <span class="badge badge-paid">POPULAR</span></h2>
 <p><strong>$19/mo</strong> — paid via USDC on Base</p>
-<ul><li>All 31 Docker management tools</li><li>Compose lifecycle, exec, monitoring</li><li>120 requests/min</li><li>Priority support</li></ul>
+<ul><li>All 42 Docker management tools</li><li>Compose lifecycle, exec, monitoring</li><li>120 requests/min</li><li>Priority support</li></ul>
 <div class="step"><strong>How to subscribe:</strong><br>
 1. POST <code>/api/subscribe</code> with your wallet address<br>
 2. Send 19 USDC to the provided address on Base<br>
@@ -642,7 +642,7 @@ code{background:#f5f5f5;padding:2px 6px;border-radius:4px;font-size:13px}
           },
           tiers: {
             free: "Read-only (8 tools), 30 req/min",
-            standard: "$19/mo — all 31 tools, 120 req/min",
+            standard: "$19/mo — all 42 tools, 120 req/min",
           },
           payment: {
             method: "USDC on Base",
