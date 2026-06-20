@@ -19,6 +19,8 @@ Your Docker MCP Server (local machine)
 Your containers
 ```
 
+> **🚀 Want to get started fast?** See [QUICKSTART.md](QUICKSTART.md) — up and running in under 5 minutes.
+
 ## Why Hosted?
 
 Running `docker-mcp-server` locally works fine when you're on the same machine. But if you want to:
